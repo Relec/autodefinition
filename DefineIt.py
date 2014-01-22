@@ -76,8 +76,7 @@ def parse_comment(comment):
                 print res
                 if res != "Not found":
                     threading.Thread(target=reply_to_comment, args=(comment, res)).start()
-                    threading.Thread(target=write_id, args=(comment,)).start()
-
+                    write_id(comment)
 
 # Look up word using nltk
 def lookup_word(word):
