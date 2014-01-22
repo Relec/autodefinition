@@ -74,9 +74,10 @@ def parse_comment(comment):
                 async_result = pool.apply_async(lookup_word, (value,))
                 res = async_result.get()
                 print res
-                if res != "Not found" and comment.id not in already_done:
-                    reply_to_comment(comment, res)
-                    write_id(comment)
+                if res != "Not found":
+                    threading.Thread(target=reply_to_comment, args=(comment, res)).start()
+                    threading.Thread(target=write_id, args=(comment,)).start()
+
 
 # Look up word using nltk
 def lookup_word(word):
